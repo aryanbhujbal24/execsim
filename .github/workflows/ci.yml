@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        ocaml: ["4.14.x", "5.1.x"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ matrix.ocaml }}
+
+      - run: opam install . --deps-only --with-test
+
+      - run: opam exec -- dune build
+
+      # 7,000 generated operation sequences plus the unit suites.
+      - run: opam exec -- dune test
+
+      # Benchmarks are built in CI so they cannot rot, but not timed here:
+      # shared runners give numbers too noisy to be worth recording.
+      - run: opam exec -- dune build --profile release bench/bench.exe bench/alloc.exe

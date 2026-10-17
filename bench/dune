@@ -1,0 +1,5 @@
+(executables
+ (names bench alloc)
+ (libraries base unix execsim)
+ (flags
+  (:standard -w +a-4-9-40-41-42-44-45-48-70 -strict-sequence -short-paths)))

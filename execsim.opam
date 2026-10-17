@@ -1,0 +1,23 @@
+opam-version: "2.0"
+synopsis: "A limit order book, matching engine and execution simulator"
+description: """
+A price-time priority limit order book with an integrated matching engine,
+plus optimal-execution schedules that can be run against it and costed by
+implementation shortfall.
+"""
+maintainer: ["Aryan Bhujbal <aryanbhujbal24600@gmail.com>"]
+authors: ["Aryan Bhujbal"]
+license: "MIT"
+homepage: "https://github.com/aryanbhujbal24/execsim"
+bug-reports: "https://github.com/aryanbhujbal24/execsim/issues"
+depends: [
+  "ocaml" {>= "4.14"}
+  "dune" {>= "3.0"}
+  "base"
+  "alcotest" {with-test}
+  "qcheck-core" {with-test}
+]
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]

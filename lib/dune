@@ -1,0 +1,6 @@
+(library
+ (name execsim)
+ (libraries base)
+ (flags
+  (:standard -w +a-4-9-40-41-42-44-45-48-70 -strict-sequence -strict-formats
+    -short-paths -principal)))
